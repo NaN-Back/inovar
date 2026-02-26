@@ -1,0 +1,54 @@
+import os
+import zipfile
+
+# Nome do projeto
+project_name = "plpe-mvp-docker"
+os.makedirs(project_name, exist_ok=True)
+
+# Backend
+os.makedirs(f"{project_name}/backend", exist_ok=True)
+with open(f"{project_name}/backend/main.py", "w") as f:
+    f.write("# main.py FastAPI backend placeholder\n")
+with open(f"{project_name}/backend/simulation.py", "w") as f:
+    f.write("# simulation.py placeholder\n")
+with open(f"{project_name}/backend/pdf_report.py", "w") as f:
+    f.write("# pdf_report.py placeholder\n")
+with open(f"{project_name}/backend/requirements.txt", "w") as f:
+    f.write("fastapi\nuvicorn\nnumpy\nreportlab\npsycopg2-binary\n")
+
+# Frontend
+os.makedirs(f"{project_name}/frontend/pages", exist_ok=True)
+os.makedirs(f"{project_name}/frontend/styles", exist_ok=True)
+with open(f"{project_name}/frontend/package.json", "w") as f:
+    f.write('{"name": "plpe-frontend"}')
+with open(f"{project_name}/frontend/pages/index.js", "w") as f:
+    f.write("// index.js placeholder")
+with open(f"{project_name}/frontend/styles/globals.css", "w") as f:
+    f.write("/* globals.css placeholder */")
+
+# DB
+os.makedirs(f"{project_name}/db", exist_ok=True)
+with open(f"{project_name}/db/create_tables.sql", "w") as f:
+    f.write("-- create_tables.sql placeholder\n")
+
+# Docker Compose e Dockerfiles
+with open(f"{project_name}/docker-compose.yml", "w") as f:
+    f.write("# docker-compose.yml placeholder\n")
+with open(f"{project_name}/backend/Dockerfile", "w") as f:
+    f.write("# Backend Dockerfile placeholder\n")
+with open(f"{project_name}/frontend/Dockerfile", "w") as f:
+    f.write("# Frontend Dockerfile placeholder\n")
+
+# README
+with open(f"{project_name}/README.md", "w") as f:
+    f.write("# README placeholder\n")
+
+# Criar ZIP
+zip_filename = f"{project_name}.zip"
+with zipfile.ZipFile(zip_filename, 'w', zipfile.ZIP_DEFLATED) as zipf:
+    for root, dirs, files in os.walk(project_name):
+        for file in files:
+            filepath = os.path.join(root, file)
+            zipf.write(filepath, os.path.relpath(filepath, project_name))
+
+print(f"ZIP gerado com sucesso: {zip_filename}")
